@@ -12,6 +12,7 @@ const Container = styled('aside')(({ theme }) => ({
   right: `calc(100% - ${theme.sidebarWidth}px)`,
   left: 0,
   padding: '0.5em',
+  zIndex: 10,
   overflowY: 'auto',
 }));
 
@@ -29,14 +30,6 @@ export default function ParticipantStrip() {
         isSelected={selectedParticipant === localParticipant}
         onClick={() => setSelectedParticipant(localParticipant)}
       />
-      {participants.map(participant => (
-        <Participant
-          key={participant.sid}
-          participant={participant}
-          isSelected={selectedParticipant === participant}
-          onClick={() => setSelectedParticipant(participant)}
-        />
-      ))}
     </Container>
   );
 }
