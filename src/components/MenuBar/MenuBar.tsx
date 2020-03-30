@@ -62,9 +62,6 @@ export default function MenuBar() {
     if (URLUserName) {
       setName(URLUserName);
     }
-    if (URLRoomName && URLUserName) {
-      getToken(URLUserName, URLRoomName).then(token => connect(token));
-    }
   }, [URLRoomName, URLUserName]);
 
   const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
