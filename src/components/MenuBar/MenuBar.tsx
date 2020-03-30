@@ -20,9 +20,10 @@ const useStyles = makeStyles((theme: Theme) =>
     container: {
       backgroundColor: theme.palette.background.default,
     },
-    form: {
+    toolbar: {
       display: 'flex',
       alignItems: 'center',
+      justifyContent: 'center',
     },
     textField: {
       marginLeft: theme.spacing(1),
@@ -64,16 +65,7 @@ export default function MenuBar() {
     }
   }, [URLRoomName, URLUserName]);
 
-  const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
-  };
-
-  const handleRoomNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setRoomName(event.target.value);
-  };
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = () => {
     // If this app is deployed as a twilio function, don't change the URL beacuse routing isn't supported.
     if (!window.location.origin.includes('twil.io')) {
       window.history.replaceState(null, '', window.encodeURI(`/room/${roomName}`));
@@ -83,46 +75,20 @@ export default function MenuBar() {
 
   return (
     <AppBar className={classes.container} position="static">
-      <Toolbar>
+      <Toolbar className={classes.toolbar}>
         {roomState === 'disconnected' ? (
-          <form className={classes.form} onSubmit={handleSubmit}>
-            {!user?.displayName ? (
-              <TextField
-                id="menu-name"
-                label="Name"
-                className={classes.textField}
-                value={name}
-                onChange={handleNameChange}
-                margin="dense"
-              />
-            ) : (
-              <Typography className={classes.displayName} variant="body1">
-                {user.displayName}
-              </Typography>
-            )}
-            <TextField
-              id="menu-room"
-              label="Room"
-              className={classes.textField}
-              value={roomName}
-              onChange={handleRoomNameChange}
-              margin="dense"
-            />
-            <Button
-              type="submit"
-              color="primary"
-              variant="contained"
-              disabled={isConnecting || !name || !roomName || isFetching}
-            >
-              Join Room
-            </Button>
-            {(isConnecting || isFetching) && <CircularProgress className={classes.loadingSpinner} />}
-          </form>
+          <Button
+            type="submit"
+            color="primary"
+            variant="contained"
+            onClick={handleSubmit}
+            disabled={isConnecting || !name || !roomName || isFetching}
+          >
+            Join Video Visit
+          </Button>
         ) : (
-          <h3>{roomName}</h3>
+          ''
         )}
-        <ToggleFullscreenButton />
-        <Menu />
       </Toolbar>
     </AppBar>
   );
