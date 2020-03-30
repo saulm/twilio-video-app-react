@@ -1,7 +1,6 @@
 import React from 'react';
 import Participant from '../Participant/Participant';
 import { styled } from '@material-ui/core/styles';
-import useParticipants from '../../hooks/useParticipants/useParticipants';
 import useVideoContext from '../../hooks/useVideoContext/useVideoContext';
 import useSelectedParticipant from '../VideoProvider/useSelectedParticipant/useSelectedParticipant';
 
@@ -20,7 +19,8 @@ export default function ParticipantStrip() {
   const {
     room: { localParticipant },
   } = useVideoContext();
-  const participants = useParticipants();
+
+  console.log('AAAAAAAAAA');
   const [selectedParticipant, setSelectedParticipant] = useSelectedParticipant();
 
   return (

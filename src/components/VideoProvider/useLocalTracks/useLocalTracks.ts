@@ -42,6 +42,7 @@ export function useLocalVideoTrack() {
 
   useEffect(() => {
     // We get a new local video track when the app loads.
+    console.log('DDDDDDDDDDDDDDDDD');
     getLocalVideoTrack();
   }, [getLocalVideoTrack]);
 

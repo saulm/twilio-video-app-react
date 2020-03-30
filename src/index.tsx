@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-d
 import { ConnectOptions } from 'twilio-video';
 import ErrorDialog from './components/ErrorDialog/ErrorDialog';
 import LoginPage from './components/LoginPage/LoginPage';
+import JoinRoomPage from './components/JoinRoomPage/JoinRoomPage';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import theme from './theme';
 import './types';
@@ -51,16 +52,12 @@ ReactDOM.render(
     <Router>
       <AppStateProvider>
         <Switch>
-          <PrivateRoute exact path="/">
+          <PrivateRoute path="/room/:URLRoomName/user/:UserIdentifier/session">
             <VideoApp />
           </PrivateRoute>
-          <PrivateRoute path="/room/:URLRoomName">
-            <VideoApp />
+          <PrivateRoute path="/room/:URLRoomName/user/:UserIdentifier">
+            <JoinRoomPage />
           </PrivateRoute>
-          <Route path="/login">
-            <LoginPage />
-          </Route>
-          <Redirect to="/" />
         </Switch>
       </AppStateProvider>
     </Router>
