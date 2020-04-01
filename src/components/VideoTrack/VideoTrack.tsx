@@ -12,10 +12,11 @@ const Video = styled('video')({
 interface VideoTrackProps {
   track: IVideoTrack;
   isLocal?: boolean;
+  isPreview?: boolean;
   priority?: Track.Priority;
 }
 
-export default function VideoTrack({ track, isLocal, priority }: VideoTrackProps) {
+export default function VideoTrack({ track, isLocal, priority, isPreview }: VideoTrackProps) {
   const ref = useRef<HTMLVideoElement>(null!);
 
   useEffect(() => {
@@ -34,8 +35,19 @@ export default function VideoTrack({ track, isLocal, priority }: VideoTrackProps
     };
   }, [track, priority]);
 
-  // The local video track is mirrored.
-  const style = isLocal ? { transform: 'rotateY(180deg)' } : {};
+  var style = {};
+
+  if (isPreview) {
+    style = {
+      transform: 'translateY(-50%) rotateY(180deg)',
+      top: '40%',
+      position: 'absolute',
+    };
+  } else if (isLocal) {
+    style = { transform: 'rotateY(180deg)' };
+  } else {
+    style = {};
+  }
 
   return <Video ref={ref} style={style} />;
 }
